@@ -12,7 +12,7 @@ except FileNotFoundError:
     exit()
 
 # 🔑 Configure Gemini API key
-genai.configure(api_key="AIzaSyDD6eyOB1prJLGLIImL9WyIMeap9ctVBVQ")  # replace with yours if needed
+genai.configure(api_key="**********************")  # replace with yours if needed
 
 # Use correct model name (adjust if not available in your key/project)
 model_name = "models/gemini-1.5-pro"
