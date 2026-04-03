@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import HospitalPortal from './pages/HospitalPortal';
@@ -14,7 +15,8 @@ const ProtectedRoute = ({ children, allowedRole }) => {
 
   if (!token) return <Navigate to="/login" />;
   if (allowedRole && role !== allowedRole && role !== 'admin') {
-    return <Navigate to={`/${role}`} />;
+    const fallback = role === 'donor' ? '/donor?tab=dashboard' : `/${role}`;
+    return <Navigate to={fallback} />;
   }
   return children;
 };
@@ -25,7 +27,7 @@ export default function App() {
       <Navbar />
       <div style={{ paddingTop: '80px', width: '100%', display: 'flex', justifyContent: 'center', padding: '100px 2rem 2rem 2rem' }}>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/superuser-setup" element={<AdminSignup />} />

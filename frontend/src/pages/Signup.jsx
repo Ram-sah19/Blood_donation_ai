@@ -1,13 +1,18 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Signup() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Pre-select role from ?role=donor or ?role=hospital
+  const initialRole = new URLSearchParams(location.search).get('role') || 'donor';
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    role: 'donor',
+    role: initialRole,
     bloodGroup: 'O+'
   });
   const [loading, setLoading] = useState(false);
@@ -30,7 +35,8 @@ export default function Signup() {
       localStorage.setItem("role", data.role);
       localStorage.setItem("name", data.name);
       
-      window.location.href = `/${data.role}`;
+      const dest = data.role === 'donor' ? '/donor?tab=dashboard' : `/${data.role}`;
+      window.location.href = dest;
     } catch (err) {
       setError(err.message);
     } finally {
