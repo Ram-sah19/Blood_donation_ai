@@ -49,11 +49,14 @@ Create a `.env` file at the root to hold your API keys securely:
 GEMINI_API_KEY=your_gemini_key_here
 JWT_SECRET_KEY=generate_a_random_secure_string
 MONGO_URI=mongodb://localhost:27017
+ADMIN_REGISTRATION_CODE=your_secret_admin_code
 ```
+
+> ⚠️ **Important:** Save the `.env` file in **UTF-8 encoding** (not UTF-16). Editors like Notepad on Windows may save in UTF-16, which causes a `ValueError: embedded null character` crash on startup.
 
 Start the FastAPI application:
 ```bash
-python -m uvicorn backend.main:app --reload
+python -m uvicorn backend.main:app --reload --port 8000
 ```
 
 ### 2. Frontend Setup
@@ -64,7 +67,43 @@ npm install
 npm run dev
 ```
 
-Your platform will now be running visibly at `http://localhost:5173`!
+Your platform will now be running at `http://localhost:5173`!
+
+---
+
+## 🔐 Admin Panel Access
+
+The admin panel is protected and requires a two-step process:
+
+### Step 1 — Register an Admin Account (One-Time Setup)
+Navigate to the hidden registration page:
+```
+http://localhost:5173/superuser-setup
+```
+Fill in the following fields:
+- **Admin Email** — your admin email address
+- **Strong Password** — a secure password
+- **ADMIN_REGISTRATION_CODE** — the secret code set in your `.env` file
+
+> This page only needs to be used once to create the first admin account.
+
+### Step 2 — Login as Admin
+Once registered, log in via the standard login page:
+```
+http://localhost:5173/login
+```
+Use your admin email and password. You will be **automatically redirected** to the admin dashboard at:
+```
+http://localhost:5173/admin
+```
+
+### Troubleshooting
+| Problem | Cause | Fix |
+|---|---|---|
+| `Failed to fetch` on login | Backend not running | Run `python -m uvicorn backend.main:app --reload --port 8000` |
+| `Email already registered` | Account exists | Skip to Step 2 and just log in |
+| `Invalid admin registration code` | Wrong secret code | Check `ADMIN_REGISTRATION_CODE` in your `.env` |
+| `ValueError: embedded null character` | `.env` saved as UTF-16 | Re-save `.env` as UTF-8 in your editor |
 
 ---
 

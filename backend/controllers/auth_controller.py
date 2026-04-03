@@ -11,6 +11,11 @@ async def register(user: UserRegister):
     if existing_user:
         raise HTTPException(status_code=400, detail="Email already registered")
     
+    if user.role == "admin":
+        import os
+        if user.admin_secret != os.getenv("ADMIN_REGISTRATION_CODE") or not user.admin_secret:
+            raise HTTPException(status_code=403, detail="Invalid admin registration code")
+
     hashed_pwd = get_password_hash(user.password)
     user_dict = user.model_dump()
     user_dict["password_hash"] = hashed_pwd

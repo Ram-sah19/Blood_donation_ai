@@ -5,6 +5,7 @@ import Signup from './pages/Signup';
 import HospitalPortal from './pages/HospitalPortal';
 import DonorPortal from './pages/DonorPortal';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminSignup from './pages/AdminSignup';
 
 // Mock Protected Route
 const ProtectedRoute = ({ children, allowedRole }) => {
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/superuser-setup" element={<AdminSignup />} />
 
           <Route path="/hospital" element={<ProtectedRoute allowedRole="hospital"><HospitalPortal /></ProtectedRoute>} />
           <Route path="/donor" element={<ProtectedRoute allowedRole="donor"><DonorPortal /></ProtectedRoute>} />
