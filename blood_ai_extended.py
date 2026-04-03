@@ -6,13 +6,17 @@ import pickle
 import os
 import requests
 import re
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Load your trained model
 with open("blood_model.pkl", "rb") as f:
     model = pickle.load(f)
 
-# 🔑 Set Gemini API key
-genai.configure(api_key="YOUR GEMININ API KEY")  # <-- Replace this with your actual key
+# 🔑 Set Gemini API key securely from .env
+api_key = os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=api_key)
 
 # Gemini model setup
 model_name = "models/gemini-2.5-flash"

@@ -2,6 +2,9 @@ import google.generativeai as genai
 import json
 import pickle
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Load trained model
 try:
@@ -11,8 +14,9 @@ except FileNotFoundError:
     print("❌ Error: Trained model file 'blood_model.pkl' not found. Run 'train_blood_ai.py' first.")
     exit()
 
-# 🔑 Configure Gemini API key
-genai.configure(api_key="**********************")  # replace with yours if needed
+# 🔑 Configure Gemini API key from .env securely
+api_key = os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=api_key)
 
 # Use correct model name (adjust if not available in your key/project)
 model_name = "models/gemini-1.5-pro"
