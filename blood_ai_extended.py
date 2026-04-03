@@ -12,10 +12,10 @@ with open("blood_model.pkl", "rb") as f:
     model = pickle.load(f)
 
 # 🔑 Set Gemini API key
-genai.configure(api_key="your_api_key_here")  # <-- Replace this with your actual key
+genai.configure(api_key="YOUR GEMININ API KEY")  # <-- Replace this with your actual key
 
 # Gemini model setup
-model_name = "models/gemini-1.5-pro"
+model_name = "models/gemini-2.5-flash"
 chat = genai.GenerativeModel(model_name).start_chat()
 
 # 🩸 User input

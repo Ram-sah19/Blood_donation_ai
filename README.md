@@ -1,97 +1,76 @@
-**Blood Donation AI**
+# 🩸 Blood Donation AI Platform (Sanguis AI)
 
-Overview
-The Blood Donation AI is designed to assist in optimizing the blood donation process. Using artificial intelligence, it provides recommendations for when and where individuals should donate blood based on their health status, past donation history, and nearby blood bank requirements. This AI model is the core of a larger blood donation ecosystem that could eventually be integrated into apps and websites.
+An open-source, full-stack ecosystem designed to optimize the blood donation process. It operates as a multi-role web platform connecting **Hospitals**, **Donors**, and **Administrators** via an advanced AI framework.
 
-Features
-Donor Recommendation System: The AI analyzes user data (e.g., past donation history, health parameters) to recommend personalized blood donation schedules.
+## 🌟 Key Features
 
-Eligibility Checker: The AI checks whether a user is eligible to donate blood based on health criteria and donation frequency guidelines.
+1. **Role-Based Portals (MVC Architecture)**
+   - **Hospital Workspace**: Allows medical staff to input real-time emergency requests.
+   - **Donor Dashboard**: Donors can track their eligibility and receive local, push-emergency alerts.
+   - **Admin Panel**: High-level network statistics and user management.
 
-Blood Bank Matching: The AI matches potential donors with nearby blood banks or hospitals in need of specific blood types.
+2. **Google Gemini NLP Extraction**
+   - Medical staff can simply type natural language (e.g., *"Patient needs 2 units of O- urgently for a surgery in Chennai"*). The API uses Gemini to extract the precise units, blood type, urgency, and location.
 
-Predictive Analytics: The model uses historical data to predict blood demand in various regions, allowing for better resource management.
+3. **Predictive Analytics (Scikit-Learn)**
+   - A trained machine learning model runs on all requests to evaluate prioritization and predict optimal blood bank routing strategies.
 
-Health & Safety Monitoring: Offers health suggestions to users based on their donation frequency and well-being.
+4. **Secure Infrastructure**
+   - **JWT Authentication** and `bcrypt` password hashing.
+   - Direct integration with **MongoDB** for persistent data storage.
 
-Technologies Used
-AI Model: Python (TensorFlow, scikit-learn)
+---
 
-Data Processing: Pandas, NumPy
+## 🛠️ Technology Stack
+- **Frontend Layer (View)**: React, Vite, React Router, custom CSS Glassmorphism
+- **Backend Layer (Controllers/Models)**: Python FastAPI, Pydantic, Passlib
+- **Database**: Asynchronous MongoDB (`motor`)
+- **Artificial Intelligence**: Google Generative AI (Gemini Flash), Scikit-Learn
 
-Machine Learning Algorithms: Supervised learning, regression models, classification
+---
 
-API Integration (Optional for future expansion): To connect the AI with blood bank and hospital databases
+## 🚀 Installation & Setup
 
-Installation
-Prerequisites
-Python 3.x
+### Prerequisites
+- Python 3.10+
+- Node.js (for React)
+- Local or Cloud MongoDB instance (default port `27017`)
 
-TensorFlow
-
-scikit-learn
-
-Pandas
-
-NumPy
-
-Steps
-Clone the repository:
-
-bash
-Copy
-Edit
+### 1. Backend Setup
+Clone the repository and install the Python dependencies.
+```bash
 git clone https://github.com/Ram-sah19/blood-donation-ai.git
 cd blood-donation-ai
-Install required Python dependencies:
-
-bash
-Copy
-Edit
 pip install -r requirements.txt
-Run the AI model:
+```
 
-bash
-Copy
-Edit
-python main.py
-(Optional) If you are using an API or additional modules, ensure they are correctly configured and running.
+Create a `.env` file at the root to hold your API keys securely:
+```env
+GEMINI_API_KEY=your_gemini_key_here
+JWT_SECRET_KEY=generate_a_random_secure_string
+MONGO_URI=mongodb://localhost:27017
+```
 
-Usage
-Once the AI is set up, you can:
+Start the FastAPI application:
+```bash
+python -m uvicorn backend.main:app --reload
+```
 
-Input donor data (e.g., blood type, donation history, health conditions).
+### 2. Frontend Setup
+Open a new terminal and initialize the React application:
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-Get personalized donation recommendations.
+Your platform will now be running visibly at `http://localhost:5173`!
 
-Check if a user is eligible to donate blood.
+---
 
-Match donors with blood banks or hospitals in need.
+## 🤝 Contributing
+Feel free to fork the repository and submit a pull request!
+For major structural changes, please open an issue first to discuss what you would like to change.
 
-**Example Code**
-Here’s a quick example of how to use the AI model:
-
-python
-Copy
-Edit
-from blood_donation_ai import BloodDonationAI
-
-# Example donor data
-donor_data = {
-    'blood_type': 'O+',
-    'age': 30,
-    'health_status': 'Healthy',
-    'last_donation': '2023-12-01'
-}
-
-ai = BloodDonationAI(donor_data)
-recommendation = ai.get_donation_recommendation()
-print(recommendation)
-Contributing
-
-If you'd like to contribute to this project, feel free to fork the repository and submit a pull request. For bug reports or feature requests, open an issue in the GitHub repository.
-
-
-
-**License**
+## 📄 License
 This project is licensed under the MIT License - see the LICENSE file for details.
